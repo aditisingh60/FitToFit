@@ -1,0 +1,77 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String      @id @default(uuid())
+  name         String
+  email        String      @unique
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  profile      UserProfile?
+  mealLogs     MealLog[]
+  dailySummaries DailySummary[]
+}
+
+model UserProfile {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  age              Int
+  sex              String
+  weightKg         Float
+  heightCm         Float
+  activityFactor   Float    @default(1.2)
+  goal             String   @default("maintain")
+  bmi              Float
+  bmr              Float
+  tdee             Float
+  dailyCalorieGoal Int
+  onboardingDone   Boolean  @default(false)
+  updatedAt        DateTime @updatedAt
+}
+
+model FoodItem {
+  id        String   @id
+  name      String
+  calories  Float
+  carbs     Float
+  protein   Float
+  fat       Float
+  vitamins  Json?
+  source    String   @default("open_food_facts")
+  cachedAt  DateTime @default(now())
+  mealLogs  MealLog[]
+}
+
+model MealLog {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  foodId           String
+  food             FoodItem @relation(fields: [foodId], references: [id])
+  grams            Float
+  mealType         String
+  caloriesConsumed Float
+  loggedAt         DateTime @default(now())
+}
+
+model DailySummary {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date         DateTime
+  totalCalories Float
+  totalCarbs   Float
+  totalProtein Float
+  totalFat     Float
+
+  @@unique([userId, date])
+}
