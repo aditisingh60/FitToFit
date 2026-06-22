@@ -19,7 +19,7 @@ export async function apiFetch(path, options = {}) {
   }
 
   const data = await res.json().catch(() => ({}))
-
+  console.log("data",data)
   if (!res.ok) {
     throw new Error(data.error || `Request failed (${res.status})`)
   }

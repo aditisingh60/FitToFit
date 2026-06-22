@@ -1,11 +1,12 @@
 const express = require('express')
 const authMiddleware = require('../middleware/auth.middleware')
-const { getDailyStatus, getWeeklyHistory } = require('../controllers/analytics.controller')
+const { getWater, logWater, resetWater } = require('../controllers/water.controller')
 
 const router = express.Router()
 
 router.use(authMiddleware)
-router.get('/daily-status', getDailyStatus)
-router.get('/weekly-history', getWeeklyHistory)
+router.get('/', getWater)
+router.post('/', logWater)
+router.delete('/', resetWater)
 
 module.exports = router

@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { checkServerHealth, login, register } from '../api/auth.api'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../store/authStore'
 
 const UserIcon = ({ className }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
@@ -44,7 +44,7 @@ const MODES = {
 const Login = () => {
   const navigate = useNavigate()
   const { login: authLogin, onboardingDone, user, loading: authLoading } = useAuth()
-  const [mode, setMode] = useState(MODES.signup)
+  const [mode, setMode] = useState(MODES.signin)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -117,7 +117,7 @@ const Login = () => {
   }
 
   return (
-    <div className="flex min-h-svh bg-slate-50">
+    <div className="flex min-h-svh bg-transparent">
       {/* Brand panel */}
       <div className="relative hidden w-1/2 overflow-hidden lg:flex lg:flex-col lg:justify-between">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-700 via-brand-600 to-emerald-400" />

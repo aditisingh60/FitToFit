@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { saveOnboarding } from '../api/user.api'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../store/authStore'
 import { MacroGrid } from '../components/dashboard/MacroCard'
 import {
   ACTIVITY_LEVELS,
@@ -16,11 +16,16 @@ const STEPS = ['About you', 'Body stats', 'Activity', 'Your plan']
 
 export default function Onboarding() {
   const navigate = useNavigate()
-  const { user, completeOnboarding } = useAuth()
+  const { user, completeOnboarding, logout } = useAuth()
 
   const [step, setStep] = useState(0)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
 
   const [form, setForm] = useState({
     age: '',
@@ -103,7 +108,13 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="min-h-svh bg-gradient-to-br from-slate-50 via-white to-brand-50 px-4 py-10">
+    <div className="min-h-svh relative bg-transparent px-4 py-10">
+      <button
+        onClick={handleLogout}
+        className="absolute right-4 top-4 sm:right-8 sm:top-8 rounded-lg px-4 py-2 text-sm font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition"
+      >
+        Log out
+      </button>
       <div className="mx-auto max-w-2xl">
         <div className="mb-8 text-center">
           <div className="mb-3 inline-flex items-center gap-2">

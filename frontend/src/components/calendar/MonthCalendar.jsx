@@ -8,7 +8,7 @@ import {
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-export default function MonthCalendar({ trackedDays, selectedDate, onSelectDate, onToggleTrack }) {
+export default function MonthCalendar({ trackedDays, completedDays = new Set(), selectedDate, onSelectDate, onToggleTrack }) {
   const today = new Date()
   const [viewDate, setViewDate] = useState(
     () => new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
@@ -64,6 +64,7 @@ export default function MonthCalendar({ trackedDays, selectedDate, onSelectDate,
 
           const key = toDateKey(date)
           const tracked = isTracked(date)
+          const isAutoCompleted = completedDays.has(key)
           const selected = isSameDay(date, selectedDate)
           const isToday = isSameDay(date, today)
           const future = isFuture(date)
@@ -80,15 +81,20 @@ export default function MonthCalendar({ trackedDays, selectedDate, onSelectDate,
                 future && 'cursor-not-allowed opacity-30',
                 selected
                   ? 'bg-brand-600 text-white shadow-md shadow-brand-600/30'
-                  : tracked
-                    ? 'bg-brand-50 text-brand-700 ring-1 ring-brand-200'
-                    : isToday
-                      ? 'bg-slate-100 text-slate-900 ring-2 ring-brand-500'
-                      : 'text-slate-700 hover:bg-slate-50',
+                  : isAutoCompleted
+                    ? 'bg-emerald-50 text-emerald-700 ring-2 ring-emerald-300'
+                    : tracked
+                      ? 'bg-brand-50 text-brand-700 ring-1 ring-brand-200'
+                      : isToday
+                        ? 'bg-slate-100 text-slate-900 ring-2 ring-brand-500'
+                        : 'text-slate-700 hover:bg-slate-50',
               ].join(' ')}
             >
               {date.getDate()}
-              {tracked && !selected && (
+              {isAutoCompleted && !selected && (
+                <span className="absolute top-1 right-1 text-[9px]" title="Targets met! Auto-marked.">🔥</span>
+              )}
+              {tracked && !isAutoCompleted && !selected && (
                 <span className="absolute bottom-1.5 h-1 w-1 rounded-full bg-brand-500" />
               )}
             </button>
@@ -101,7 +107,10 @@ export default function MonthCalendar({ trackedDays, selectedDate, onSelectDate,
           <span className="h-3 w-3 rounded-md bg-brand-600" /> Selected
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded-md bg-brand-50 ring-1 ring-brand-200" /> Tracked
+          <span className="h-3 w-3 rounded-md bg-emerald-50 ring-2 ring-emerald-300" /> Targets Met (Auto)
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-3 w-3 rounded-md bg-brand-50 ring-1 ring-brand-200" /> Tracked (Manual)
         </span>
         <span className="flex items-center gap-1.5">
           <span className="h-3 w-3 rounded-md bg-slate-100 ring-2 ring-brand-500" /> Today

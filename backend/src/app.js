@@ -6,6 +6,10 @@ const rateLimit = require('express-rate-limit')
 
 const authRoutes = require('./routes/auth.routes')
 const userRoutes = require('./routes/user.routes')
+const foodRoutes = require('./routes/food.routes')
+const mealRoutes = require('./routes/meal.routes')
+const waterRoutes = require('./routes/water.routes')
+const analyticsRoutes = require('./routes/analytics.routes')
 
 const app = express()
 
@@ -35,6 +39,10 @@ if (process.env.NODE_ENV === 'development') {
 // ── Routes ────────────────────────────────────────
 app.use('/api/auth', authLimiter, authRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/food', foodRoutes)
+app.use('/api/meal', mealRoutes)
+app.use('/api/water', waterRoutes)
+app.use('/api/analytics', analyticsRoutes)
 
 // ── Health check ──────────────────────────────────
 app.get('/health', (req, res) => {

@@ -17,6 +17,7 @@ model User {
   createdAt    DateTime   @default(now())
   profile      UserProfile?
   mealLogs     MealLog[]
+  waterLogs    WaterLog[]
   dailySummaries DailySummary[]
 }
 
@@ -39,16 +40,18 @@ model UserProfile {
 }
 
 model FoodItem {
-  id        String   @id
-  name      String
-  calories  Float
-  carbs     Float
-  protein   Float
+  id            String   @id
+  name          String
+  calories      Float
+  carbs         Float
+  protein       Float
   fat       Float
-  vitamins  Json?
-  source    String   @default("open_food_facts")
-  cachedAt  DateTime @default(now())
-  mealLogs  MealLog[]
+  vitamins      Json?
+  servingUnit   String   @default("serving")
+  servingWeight Float    @default(100)
+  source        String   @default("open_food_facts")
+  cachedAt      DateTime @default(now())
+  mealLogs      MealLog[]
 }
 
 model MealLog {
@@ -74,4 +77,12 @@ model DailySummary {
   totalFat     Float
 
   @@unique([userId, date])
+}
+
+model WaterLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amountMl  Int
+  loggedAt  DateTime @default(now())
 }

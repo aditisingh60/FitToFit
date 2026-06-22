@@ -4,28 +4,24 @@ const COLORS = {
     ring: 'ring-orange-100',
     text: 'text-orange-600',
     bar: 'bg-orange-500',
-    icon: '🔥',
   },
   protein: {
-    bg: 'bg-blue-50',
-    ring: 'ring-blue-100',
-    text: 'text-blue-600',
-    bar: 'bg-blue-500',
-    icon: '💪',
+    bg: 'bg-orange-50',
+    ring: 'ring-orange-100',
+    text: 'text-orange-600',
+    bar: 'bg-orange-500',
   },
   carbs: {
-    bg: 'bg-amber-50',
-    ring: 'ring-amber-100',
-    text: 'text-amber-600',
-    bar: 'bg-amber-500',
-    icon: '🌾',
+    bg: 'bg-orange-50',
+    ring: 'ring-orange-100',
+    text: 'text-orange-600',
+    bar: 'bg-orange-500',
   },
   fat: {
-    bg: 'bg-purple-50',
-    ring: 'ring-purple-100',
-    text: 'text-purple-600',
-    bar: 'bg-purple-500',
-    icon: '🥑',
+    bg: 'bg-orange-50',
+    ring: 'ring-orange-100',
+    text: 'text-orange-600',
+    bar: 'bg-orange-500',
   },
 }
 
@@ -43,7 +39,6 @@ export default function MacroCard({ type, value, unit = 'g', subtitle }) {
           </p>
           {subtitle && <p className="mt-1 text-xs text-slate-500">{subtitle}</p>}
         </div>
-        <span className="text-2xl">{colors.icon}</span>
       </div>
     </div>
   )

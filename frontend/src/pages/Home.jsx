@@ -1,10 +1,12 @@
-import { useCallback, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useCallback, useState, useEffect } from 'react'
+import { getDailyStatus } from '../api/analytics.api'
+import { useNavigate, NavLink } from 'react-router-dom'
 import MonthCalendar from '../components/calendar/MonthCalendar'
 import { MacroGrid } from '../components/dashboard/MacroCard'
 import Button from '../components/ui/Button'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../store/authStore'
 import { formatDayLabel, getGreeting, toDateKey } from '../utils/formatDate'
+import Footer from '../components/layout/Footer'
 
 function loadTrackedDays(userId) {
   try {
@@ -26,6 +28,20 @@ export default function Home() {
   const [trackedDays, setTrackedDays] = useState(() =>
     loadTrackedDays(user?.id || 'guest')
   )
+  const [completedDays, setCompletedDays] = useState(new Set())
+
+  useEffect(() => {
+    async function loadCompletedDays() {
+      try {
+        const statusMap = await getDailyStatus()
+        const keys = Object.keys(statusMap).filter(key => statusMap[key].completed)
+        setCompletedDays(new Set(keys))
+      } catch (err) {
+        console.error('Failed to load completed days:', err)
+      }
+    }
+    loadCompletedDays()
+  }, [])
 
   const firstName = user?.name?.split(' ')[0] || 'there'
 
@@ -53,15 +69,49 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-svh bg-slate-50">
+    <div className="min-h-svh bg-transparent">
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-slate-200/50 bg-white/80 backdrop-blur-md sticky top-0 z-40">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
-              <span className="text-lg">🥗</span>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
+                <span className="text-lg">🥗</span>
+              </div>
+              <span className="text-lg font-bold text-slate-900">FoodToFit</span>
             </div>
-            <span className="text-lg font-bold text-slate-900">FoodToFit</span>
+            <nav className="flex gap-4 border-l border-slate-200 pl-6">
+              <NavLink
+                to="/home"
+                className={({ isActive }) =>
+                  `text-sm font-semibold transition ${
+                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  }`
+                }
+              >
+                Dashboard
+              </NavLink>
+              <NavLink
+                to="/tracker"
+                className={({ isActive }) =>
+                  `text-sm font-semibold transition ${
+                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  }`
+                }
+              >
+                Tracker
+              </NavLink>
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  `text-sm font-semibold transition ${
+                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  }`
+                }
+              >
+                Blog
+              </NavLink>
+            </nav>
           </div>
           <button
             type="button"
@@ -103,12 +153,13 @@ export default function Home() {
                 {trackedCount} day{trackedCount !== 1 ? 's' : ''} tracked
               </span>
             </div>
-            <MonthCalendar
-              trackedDays={trackedDays}
-              selectedDate={selectedDate}
-              onSelectDate={setSelectedDate}
-              onToggleTrack={toggleTrack}
-            />
+             <MonthCalendar
+               trackedDays={trackedDays}
+               completedDays={completedDays}
+               selectedDate={selectedDate}
+               onSelectDate={setSelectedDate}
+               onToggleTrack={toggleTrack}
+             />
           </section>
 
           {/* Day panel */}
@@ -171,6 +222,7 @@ export default function Home() {
           </section>
         </div>
       </main>
+      <Footer />
     </div>
   )
 }
