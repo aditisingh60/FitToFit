@@ -38,6 +38,9 @@ CREATE TABLE "FoodItem" (
     "protein" DOUBLE PRECISION NOT NULL,
     "fat" DOUBLE PRECISION NOT NULL,
     "vitamins" JSONB,
+    "servingUnit" TEXT NOT NULL DEFAULT 'serving',
+    "servingWeight" DOUBLE PRECISION NOT NULL DEFAULT 100,
+    "source" TEXT NOT NULL DEFAULT 'open_food_facts',
     "cachedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "FoodItem_pkey" PRIMARY KEY ("id")
@@ -69,6 +72,16 @@ CREATE TABLE "DailySummary" (
     CONSTRAINT "DailySummary_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "WaterLog" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "amountMl" INTEGER NOT NULL,
+    "loggedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "WaterLog_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -89,3 +102,6 @@ ALTER TABLE "MealLog" ADD CONSTRAINT "MealLog_foodId_fkey" FOREIGN KEY ("foodId"
 
 -- AddForeignKey
 ALTER TABLE "DailySummary" ADD CONSTRAINT "DailySummary_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "WaterLog" ADD CONSTRAINT "WaterLog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

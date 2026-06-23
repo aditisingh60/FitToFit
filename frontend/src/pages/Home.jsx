@@ -84,8 +84,7 @@ export default function Home() {
               <NavLink
                 to="/home"
                 className={({ isActive }) =>
-                  `text-sm font-semibold transition ${
-                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                   }`
                 }
               >
@@ -94,8 +93,7 @@ export default function Home() {
               <NavLink
                 to="/tracker"
                 className={({ isActive }) =>
-                  `text-sm font-semibold transition ${
-                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                   }`
                 }
               >
@@ -104,8 +102,7 @@ export default function Home() {
               <NavLink
                 to="/blog"
                 className={({ isActive }) =>
-                  `text-sm font-semibold transition ${
-                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                   }`
                 }
               >
@@ -118,7 +115,7 @@ export default function Home() {
             onClick={handleLogout}
             className="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
           >
-            Sign out
+            Logout
           </button>
         </div>
       </header>
@@ -153,13 +150,13 @@ export default function Home() {
                 {trackedCount} day{trackedCount !== 1 ? 's' : ''} tracked
               </span>
             </div>
-             <MonthCalendar
-               trackedDays={trackedDays}
-               completedDays={completedDays}
-               selectedDate={selectedDate}
-               onSelectDate={setSelectedDate}
-               onToggleTrack={toggleTrack}
-             />
+            <MonthCalendar
+              trackedDays={trackedDays}
+              completedDays={completedDays}
+              selectedDate={selectedDate}
+              onSelectDate={setSelectedDate}
+              onToggleTrack={toggleTrack}
+            />
           </section>
 
           {/* Day panel */}

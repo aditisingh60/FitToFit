@@ -209,9 +209,8 @@ function ScrollRevealSection({ children }) {
   return (
     <div
       ref={elementRef}
-      className={`transition-all duration-1000 ease-out transform ${
-        isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-      }`}
+      className={`transition-all duration-1000 ease-out transform ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        }`}
     >
       {children}
     </div>
@@ -265,8 +264,7 @@ export default function Blog() {
               <NavLink
                 to="/home"
                 className={({ isActive }) =>
-                  `text-sm font-semibold transition ${
-                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                   }`
                 }
               >
@@ -275,8 +273,7 @@ export default function Blog() {
               <NavLink
                 to="/tracker"
                 className={({ isActive }) =>
-                  `text-sm font-semibold transition ${
-                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                   }`
                 }
               >
@@ -285,8 +282,7 @@ export default function Blog() {
               <NavLink
                 to="/blog"
                 className={({ isActive }) =>
-                  `text-sm font-semibold transition ${
-                    isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                   }`
                 }
               >
@@ -299,7 +295,7 @@ export default function Blog() {
             onClick={handleLogout}
             className="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
           >
-            Sign out
+            Logout
           </button>
         </div>
       </header>
@@ -332,11 +328,10 @@ export default function Blog() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-350 cursor-pointer shadow-sm ${
-                selectedCategory === cat
+              className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-350 cursor-pointer shadow-sm ${selectedCategory === cat
                   ? 'bg-brand-600 text-white shadow-md shadow-brand-600/30 scale-105 border border-brand-600'
                   : 'bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 hover:border-slate-300'
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -371,15 +366,15 @@ export default function Blog() {
                     <span>•</span>
                     <span>{blog.readTime}</span>
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors duration-300 leading-snug">
                     {blog.title}
                   </h3>
-                  
+
                   <p className="mt-3.5 text-base text-slate-500 leading-relaxed flex-1">
                     {blog.subtitle}
                   </p>
-                  
+
                   <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-5">
                     <span className="text-sm font-semibold text-slate-700">By {blog.author}</span>
                     <span className="text-sm font-bold text-brand-600 group-hover:text-brand-700 transition-colors duration-300 flex items-center gap-1.5">
@@ -477,9 +472,8 @@ export default function Blog() {
           {visibleReviews.map((review, index) => (
             <div
               key={review.id}
-              className={`group flex flex-col justify-between rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full ${
-                index > 0 ? 'hidden md:flex' : 'flex'
-              }`}
+              className={`group flex flex-col justify-between rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full ${index > 0 ? 'hidden md:flex' : 'flex'
+                }`}
             >
               <div>
                 {/* Profile Header */}
@@ -514,11 +508,10 @@ export default function Blog() {
             <button
               key={idx}
               onClick={() => setActiveIndex(idx)}
-              className={`transition-all duration-300 rounded-full cursor-pointer ${
-                activeIndex === idx
+              className={`transition-all duration-300 rounded-full cursor-pointer ${activeIndex === idx
                   ? 'bg-brand-600 w-6 h-2.5'
                   : 'bg-slate-300 w-2.5 h-2.5 hover:bg-slate-400'
-              }`}
+                }`}
               aria-label={`Go to review ${idx + 1}`}
             />
           ))}
