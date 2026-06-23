@@ -37,7 +37,7 @@ app.use(morgan('dev'))
 
 
 // ── Routes ────────────────────────────────────────
-app.use('/api/auth', authLimiter, authRoutes)
+app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/food', foodRoutes)
 app.use('/api/meal', mealRoutes)
