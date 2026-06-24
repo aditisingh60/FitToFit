@@ -80,4 +80,55 @@ const saveOnboarding = async (req, res) => {
   }
 }
 
-module.exports = { getProfile, saveOnboarding }
+const updateProfile = async (req, res) => {
+  try {
+    const { age, sex, weightKg, heightCm, activityFactor, goal } = req.body
+
+    if (!age || !sex || !weightKg || !heightCm || !activityFactor) {
+      return res.status(400).json({ error: 'All fields are required' })
+    }
+
+    if (age < 13 || age > 120) {
+      return res.status(400).json({ error: 'Age must be between 13 and 120' })
+    }
+
+    if (weightKg < 30 || weightKg > 300) {
+      return res.status(400).json({ error: 'Please enter a valid weight' })
+    }
+
+    if (heightCm < 100 || heightCm > 250) {
+      return res.status(400).json({ error: 'Please enter a valid height' })
+    }
+
+    const metrics = calculateMetrics({
+      age: Number(age),
+      sex,
+      weightKg: Number(weightKg),
+      heightCm: Number(heightCm),
+      activityFactor: Number(activityFactor),
+      goal: goal || 'maintain',
+    })
+
+    const profile = await prisma.userProfile.update({
+      where: { userId: req.userId },
+      data: {
+        ...metrics,
+      },
+    })
+
+    const macros = calculateMacros(profile.dailyCalorieGoal)
+
+    res.json({
+      message: 'Profile updated successfully',
+      profile,
+      macros,
+      onboardingDone: profile.onboardingDone,
+    })
+  } catch (err) {
+    console.error('Update profile error:', err)
+    res.status(500).json({ error: 'Something went wrong. Please try again.' })
+  }
+}
+
+module.exports = { getProfile, saveOnboarding, updateProfile }
+

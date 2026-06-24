@@ -7,6 +7,8 @@ import Login from './pages/Login'
 import Onboarding from './pages/Onboarding'
 import Tracker from './pages/Tracker'
 import Blog from './pages/Blog'
+import Account from './pages/Account'
+import Landing from './pages/Landing'
 
 function OnboardingGate() {
   const { onboardingDone, loading } = useAuth()
@@ -23,12 +25,6 @@ function OnboardingGate() {
   return <Onboarding />
 }
 
-function RootRedirect() {
-  const token = localStorage.getItem('token')
-  if (!token) return <Navigate to="/login" replace />
-  const done = localStorage.getItem('onboardingDone') === 'true'
-  return <Navigate to={done ? '/home' : '/onboarding'} replace />
-}
 
 function App() {
   const loadProfile = useAuth((state) => state.loadProfile)
@@ -73,8 +69,16 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/" element={<RootRedirect />} />
-        <Route path="*" element={<RootRedirect />} />
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/" element={<Landing />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   )

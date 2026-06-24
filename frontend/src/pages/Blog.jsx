@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate, NavLink } from 'react-router-dom'
-import { useAuth } from '../store/authStore'
 import Footer from '../components/layout/Footer'
+import Navbar from '../components/layout/Navbar'
 
 const BLOGS = [
   {
@@ -218,8 +217,6 @@ function ScrollRevealSection({ children }) {
 }
 
 export default function Blog() {
-  const navigate = useNavigate()
-  const { logout } = useAuth()
   const [activeBlog, setActiveBlog] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [activeIndex, setActiveIndex] = useState(0)
@@ -238,11 +235,6 @@ export default function Blog() {
     REVIEWS[(activeIndex + 2) % REVIEWS.length]
   ]
 
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
-
   // Smooth scroll to top when mounting the page
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -250,55 +242,7 @@ export default function Blog() {
 
   return (
     <div className="min-h-svh bg-transparent">
-      {/* Header */}
-      <header className="border-b border-slate-200/50 bg-white/80 backdrop-blur-md sticky top-0 z-40">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
-                <span className="text-lg">🥗</span>
-              </div>
-              <span className="text-lg font-bold text-slate-900">FoodToFit</span>
-            </div>
-            <nav className="flex gap-4 border-l border-slate-200 pl-6">
-              <NavLink
-                to="/home"
-                className={({ isActive }) =>
-                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
-                  }`
-                }
-              >
-                Dashboard
-              </NavLink>
-              <NavLink
-                to="/tracker"
-                className={({ isActive }) =>
-                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
-                  }`
-                }
-              >
-                Tracker
-              </NavLink>
-              <NavLink
-                to="/blog"
-                className={({ isActive }) =>
-                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
-                  }`
-                }
-              >
-                Blog
-              </NavLink>
-            </nav>
-          </div>
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
-          >
-            Logout
-          </button>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Banner / Parallax Header */}
       <section className="relative overflow-hidden bg-brand-900 py-36 sm:py-44 text-center text-white shadow-inner">

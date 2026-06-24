@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useNavigate, NavLink } from 'react-router-dom'
 import { useAuth } from '../store/authStore'
 import { toDateKey, formatDayLabel } from '../utils/formatDate'
+import Navbar from '../components/layout/Navbar'
 import { searchFood, createCustomFood } from '../api/food.api'
 import { getMeals, logMeal, deleteMeal, resetMeals } from '../api/meal.api'
 import { getWater, logWater, resetWater } from '../api/water.api'
@@ -21,8 +21,7 @@ const VITAMIN_TARGETS = {
 }
 
 export default function Tracker() {
-  const navigate = useNavigate()
-  const { user, macros, logout } = useAuth()
+  const { user, macros } = useAuth()
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const [meals, setMeals] = useState([])
   const [waterMl, setWaterMl] = useState(0)
@@ -270,11 +269,6 @@ export default function Tracker() {
   const calConsumed = Math.round(totalNutrition.calories)
   const calRemaining = Math.max(0, calorieGoal - calConsumed)
 
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
-
   const waterTargetMl = 2000 // 2 Liters (approx 8 cups of 250ml)
   const waterProgressCups = Math.min(8, Math.floor(waterMl / 250))
 
@@ -285,55 +279,7 @@ export default function Tracker() {
 
   return (
     <div className="min-h-svh bg-transparent">
-      {/* Header */}
-      <header className="border-b border-slate-200/50 bg-white/80 backdrop-blur-md sticky top-0 z-40">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
-                <span className="text-lg">🥗</span>
-              </div>
-              <span className="text-lg font-bold text-slate-900">FoodToFit</span>
-            </div>
-            <nav className="flex gap-4 border-l border-slate-200 pl-6">
-              <NavLink
-                to="/home"
-                className={({ isActive }) =>
-                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
-                  }`
-                }
-              >
-                Dashboard
-              </NavLink>
-              <NavLink
-                to="/tracker"
-                className={({ isActive }) =>
-                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
-                  }`
-                }
-              >
-                Tracker
-              </NavLink>
-              <NavLink
-                to="/blog"
-                className={({ isActive }) =>
-                  `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
-                  }`
-                }
-              >
-                Blog
-              </NavLink>
-            </nav>
-          </div>
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
-          >
-            Logout
-          </button>
-        </div>
-      </header>
+      <Navbar />
 
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         {/* Date Selector */}

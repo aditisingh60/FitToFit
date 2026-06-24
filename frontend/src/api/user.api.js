@@ -11,3 +11,12 @@ export function saveOnboarding(payload) {
     body: JSON.stringify(payload),
   })
 }
+
+export function updateProfile(payload) {
+  return apiFetch('/api/user/profile', {
+    method: 'PUT',
+    headers: authHeaders(),
+    body: JSON.stringify(payload),
+  })
+}
+

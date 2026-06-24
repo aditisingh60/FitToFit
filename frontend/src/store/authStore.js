@@ -96,6 +96,15 @@ export const useAuth = create((set, get) => ({
     localStorage.setItem('onboardingDone', 'true')
     localStorage.setItem('profile', JSON.stringify(data))
   },
+
+  updateAuthProfile: (data) => {
+    set({
+      profile: data.profile,
+      macros: data.macros,
+    })
+    localStorage.setItem('profile', JSON.stringify(data))
+  },
+
   //logout
   logout: () => {
     localStorage.removeItem('token')
