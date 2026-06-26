@@ -1,7 +1,7 @@
 export default function AnimatedShowcase() {
   return (
     <div className="w-full h-[500px] lg:h-[750px] overflow-hidden rounded-3xl relative marquee-mask-vertical -mt-4">
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 h-[150%]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 h-[150%]">
         {/* Column 1: Down to Up */}
         <div className="animate-marquee-btt flex flex-col gap-4" style={{ animationDuration: '30s' }}>
           {[1, 2, 3].map((set) => (
@@ -75,7 +75,7 @@ export default function AnimatedShowcase() {
         </div>
 
         {/* Column 2: Up to Down */}
-        <div className="animate-marquee-ttb flex flex-col gap-4" style={{ animationDuration: '35s' }}>
+        <div className="animate-marquee-ttb hidden md:flex flex-col gap-4" style={{ animationDuration: '35s' }}>
           {[1, 2, 3].map((set) => (
             <div key={set} className="flex flex-col gap-4">
               {/* Card 4: Diary Menu */}

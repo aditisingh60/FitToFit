@@ -48,7 +48,7 @@ export function MacroGrid({ macros }) {
   if (!macros) return null
 
   return (
-    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:grid-cols-4">
       <MacroCard type="calories" value={macros.calories} unit="kcal" subtitle="Daily target" />
       <MacroCard type="protein" value={macros.protein} subtitle="30% of calories" />
       <MacroCard type="carbs" value={macros.carbs} subtitle="40% of calories" />
