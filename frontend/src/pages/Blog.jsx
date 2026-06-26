@@ -11,7 +11,7 @@ const IMAGES = [
   '/landing_food_6.png',
 ]
 
-const BLOGS = [
+export const BLOGS = [
   {
     id: 1,
     title: 'The Science of Muscle Hypertrophy',

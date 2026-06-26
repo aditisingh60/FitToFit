@@ -120,7 +120,7 @@ const Login = () => {
     <div className="flex min-h-svh bg-transparent">
       {/* Brand panel */}
       <div className="relative hidden w-1/2 overflow-hidden lg:flex lg:flex-col lg:justify-between">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-700 via-brand-600 to-emerald-400" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-800 via-brand-600 to-brand-400" />
         <div className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="absolute -bottom-16 -right-16 h-96 w-96 rounded-full bg-emerald-300/20 blur-3xl" />
 

@@ -39,6 +39,7 @@ export default function Tracker() {
   const [searchResults, setSearchResults] = useState([])
   const [searching, setSearching] = useState(false)
   const [selectedFood, setSelectedFood] = useState(null)
+  const [isEditingFood, setIsEditingFood] = useState(false)
 
   // Serving unit selection states
   const [unitType, setUnitType] = useState('servings') // 'servings' or 'grams'
@@ -108,6 +109,7 @@ export default function Tracker() {
   // Handle selecting food from search list
   const handleSelectFood = (food) => {
     setSelectedFood(food)
+    setIsEditingFood(false)
     // Default to servings if a custom serving unit is defined and is not generic 'serving'
     const hasCustomServing = food.servingUnit && food.servingUnit !== 'serving'
     setUnitType(hasCustomServing ? 'servings' : 'grams')
@@ -478,7 +480,7 @@ export default function Tracker() {
                       </div>
                       <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
                         <div
-                          className="h-full bg-orange-500 rounded-full transition-all duration-500"
+                          className="h-full bg-[#8E6549] rounded-full transition-all duration-500"
                           style={{ width: `${Math.min(100, (totalNutrition.protein / proteinGoal) * 100)}%` }}
                         />
                       </div>
@@ -494,7 +496,7 @@ export default function Tracker() {
                       </div>
                       <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
                         <div
-                          className="h-full bg-orange-500 rounded-full transition-all duration-500"
+                          className="h-full bg-[#8E6549] rounded-full transition-all duration-500"
                           style={{ width: `${Math.min(100, (totalNutrition.carbs / carbGoal) * 100)}%` }}
                         />
                       </div>
@@ -510,7 +512,7 @@ export default function Tracker() {
                       </div>
                       <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
                         <div
-                          className="h-full bg-orange-500 rounded-full transition-all duration-500"
+                          className="h-full bg-[#8E6549] rounded-full transition-all duration-500"
                           style={{ width: `${Math.min(100, (totalNutrition.fat / fatGoal) * 100)}%` }}
                         />
                       </div>
@@ -657,6 +659,35 @@ export default function Tracker() {
                     <div className="w-full border-t border-slate-100/20 text-[10px] text-slate-300 pt-1">0%</div>
                   </div>
 
+                  {/* SVG Line Graph */}
+                  <svg 
+                    className="absolute left-0 right-0 pointer-events-none z-0" 
+                    style={{ top: '1.5rem', bottom: '0.5rem', height: 'calc(100% - 2rem)', width: '100%' }}
+                    viewBox="0 0 100 100" 
+                    preserveAspectRatio="none"
+                  >
+                    {/* Calories Line */}
+                    <polyline
+                      points={weeklyHistory.map((day, i) => `${(i + 0.5) * (100 / 7)},${100 - Math.min(100, Math.round((day.calories / (weeklyCalorieGoal || 2000)) * 100))}`).join(' ')}
+                      fill="none"
+                      stroke="#10b981"
+                      strokeWidth="2"
+                      vectorEffect="non-scaling-stroke"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                    />
+                    {/* Protein Line */}
+                    <polyline
+                      points={weeklyHistory.map((day, i) => `${(i + 0.5) * (100 / 7)},${100 - Math.min(100, Math.round((day.protein / (weeklyProteinGoal || 100)) * 100))}`).join(' ')}
+                      fill="none"
+                      stroke="#3b82f6"
+                      strokeWidth="2"
+                      vectorEffect="non-scaling-stroke"
+                      strokeLinejoin="round"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+
                   <div className="flex-1 flex justify-around h-full pt-6 relative z-10">
                     {weeklyHistory.map((day) => {
                       const calPercent = Math.min(100, Math.round((day.calories / (weeklyCalorieGoal || 2000)) * 100))
@@ -673,30 +704,24 @@ export default function Tracker() {
                             <span className="text-blue-400">💪 {day.protein}g ({protPercent}%)</span>
                           </div>
 
-                          <div className="flex items-end gap-1.5 h-full w-full justify-center">
-                            {/* Calories Bar */}
-                            <div className="w-4 bg-slate-100 rounded-t-md h-full flex items-end overflow-hidden">
-                              <div
-                                className={[
-                                  "w-full rounded-t-md transition-all duration-500",
-                                  day.calories > (weeklyCalorieGoal || 2000)
-                                    ? "bg-red-500 hover:bg-red-650"
-                                    : "bg-emerald-500 hover:bg-emerald-600"
-                                ].join(' ')}
-                                style={{ height: `${calPercent}%` }}
-                              />
-                            </div>
-
-                            {/* Protein Bar */}
-                            <div className="w-4 bg-slate-100 rounded-t-md h-full flex items-end overflow-hidden">
-                              <div
-                                className="w-full bg-blue-500 rounded-t-md hover:bg-blue-600 transition-all duration-500"
-                                style={{ height: `${protPercent}%` }}
-                              />
-                            </div>
+                          <div className="relative h-full w-full flex justify-center">
+                            {/* Hover interaction area */}
+                            <div className="absolute inset-y-0 w-full bg-slate-100/0 group-hover:bg-slate-100/50 rounded-md transition-colors cursor-pointer" />
+                            
+                            {/* Calories Dot */}
+                            <div 
+                              className={`absolute w-2.5 h-2.5 rounded-full ${day.calories > (weeklyCalorieGoal || 2000) ? 'bg-red-500' : 'bg-emerald-500'} -ml-[5px] transition-transform group-hover:scale-150 ring-2 ring-white`}
+                              style={{ bottom: `calc(${calPercent}% - 5px)`, left: '50%' }}
+                            />
+                            
+                            {/* Protein Dot */}
+                            <div 
+                              className="absolute w-2.5 h-2.5 rounded-full bg-blue-500 -ml-[5px] transition-transform group-hover:scale-150 ring-2 ring-white"
+                              style={{ bottom: `calc(${protPercent}% - 5px)`, left: '50%' }}
+                            />
                           </div>
 
-                          <span className="mt-2 text-xs font-bold text-slate-500">{day.label}</span>
+                          <span className="mt-2 text-xs font-bold text-slate-500 group-hover:text-slate-900 transition-colors">{day.label}</span>
                         </div>
                       )
                     })}
@@ -722,6 +747,7 @@ export default function Tracker() {
                   setSelectedFood(null)
                   setSearchQuery('')
                   setSearchResults([])
+                  setIsEditingFood(false)
                 }}
                 className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition"
               >
@@ -789,12 +815,71 @@ export default function Tracker() {
                 </div>
               ) : (
                 <form onSubmit={handleLogMealSubmit} className="space-y-5">
-                  <div className="rounded-2xl bg-brand-50/50 border border-brand-100 p-4">
-                    <span className="text-xs font-semibold text-brand-800 uppercase tracking-wide">Selected Food</span>
-                    <h4 className="font-bold text-slate-800 text-lg mt-0.5">{selectedFood.name}</h4>
-                    <p className="text-xs text-slate-500 mt-1">
-                      Nutrients per 100g: {selectedFood.calories} kcal | Carbs: {selectedFood.carbs}g | Protein: {selectedFood.protein}g | Fat: {selectedFood.fat}g
-                    </p>
+                  <div className="rounded-2xl bg-brand-50/50 border border-brand-100 p-4 relative group">
+                    <div className="flex justify-between items-start">
+                      <span className="text-xs font-semibold text-brand-800 uppercase tracking-wide">Selected Food</span>
+                      <button 
+                        type="button"
+                        onClick={() => setIsEditingFood(!isEditingFood)}
+                        className="text-xs font-semibold text-brand-600 hover:text-brand-800 transition"
+                      >
+                        {isEditingFood ? 'Done' : 'Edit'}
+                      </button>
+                    </div>
+                    
+                    {isEditingFood ? (
+                      <div className="mt-2 space-y-3">
+                         <div>
+                           <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Name</label>
+                           <input 
+                             type="text" 
+                             value={selectedFood.name}
+                             onChange={(e) => setSelectedFood({...selectedFood, name: e.target.value})}
+                             className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                           />
+                         </div>
+                         <div className="grid grid-cols-4 gap-2">
+                           <div>
+                             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Kcal</label>
+                             <input type="number" min="0" step="any" value={selectedFood.calories} onChange={(e) => setSelectedFood({...selectedFood, calories: Number(e.target.value)})} className="w-full rounded-xl border border-slate-200 px-2 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
+                           </div>
+                           <div>
+                             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Carbs</label>
+                             <input type="number" min="0" step="any" value={selectedFood.carbs} onChange={(e) => setSelectedFood({...selectedFood, carbs: Number(e.target.value)})} className="w-full rounded-xl border border-slate-200 px-2 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
+                           </div>
+                           <div>
+                             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Prot</label>
+                             <input type="number" min="0" step="any" value={selectedFood.protein} onChange={(e) => setSelectedFood({...selectedFood, protein: Number(e.target.value)})} className="w-full rounded-xl border border-slate-200 px-2 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
+                           </div>
+                           <div>
+                             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Fat</label>
+                             <input type="number" min="0" step="any" value={selectedFood.fat} onChange={(e) => setSelectedFood({...selectedFood, fat: Number(e.target.value)})} className="w-full rounded-xl border border-slate-200 px-2 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
+                           </div>
+                         </div>
+                         <div className="grid grid-cols-2 gap-2">
+                           <div>
+                             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Serving Unit</label>
+                             <input type="text" value={selectedFood.servingUnit || 'serving'} onChange={(e) => setSelectedFood({...selectedFood, servingUnit: e.target.value})} className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
+                           </div>
+                           <div>
+                             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">Unit Weight (g)</label>
+                             <input type="number" min="1" step="any" value={selectedFood.servingWeight || 100} onChange={(e) => setSelectedFood({...selectedFood, servingWeight: Number(e.target.value)})} className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"/>
+                           </div>
+                         </div>
+                      </div>
+                    ) : (
+                      <>
+                        <h4 className="font-bold text-slate-800 text-lg mt-0.5">{selectedFood.name}</h4>
+                        <p className="text-xs text-slate-500 mt-1">
+                          Nutrients per 100g: {selectedFood.calories} kcal | Carbs: {selectedFood.carbs}g | Protein: {selectedFood.protein}g | Fat: {selectedFood.fat}g
+                        </p>
+                        {(selectedFood.servingUnit || selectedFood.servingWeight) && (
+                           <p className="text-xs text-slate-500 mt-0.5">
+                             Serving: 1 {selectedFood.servingUnit || 'serving'} ({selectedFood.servingWeight || 100}g)
+                           </p>
+                        )}
+                      </>
+                    )}
                   </div>
 
                   {/* Quantity Unit Tab selectors */}

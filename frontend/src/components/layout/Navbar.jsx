@@ -12,15 +12,15 @@ export default function Navbar() {
 
   return (
     <header className="border-b border-slate-200/50 bg-white/80 backdrop-blur-md sticky top-0 z-40">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
-        <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center gap-2.5 hover:opacity-90 transition">
+      <div className="mx-auto flex flex-wrap max-w-[90rem] items-center justify-between gap-y-4 px-4 py-4 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap w-full md:w-auto items-center justify-between md:justify-start gap-4 sm:gap-6">
+          <Link to="/" className="flex items-center gap-2.5 hover:opacity-90 transition shrink-0">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
               <span className="text-lg">🥗</span>
             </div>
             <span className="text-lg font-bold text-slate-900">FoodToFit</span>
           </Link>
-          <nav className="flex gap-4 border-l border-slate-200 pl-6">
+          <nav className="flex gap-3 sm:gap-4 border-l-0 sm:border-l border-slate-200 pl-0 sm:pl-6 overflow-x-auto w-full sm:w-auto justify-center sm:justify-start">
             <NavLink
               to="/home"
               className={({ isActive }) =>
@@ -53,7 +53,7 @@ export default function Navbar() {
             </NavLink>
           </nav>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex w-full md:w-auto items-center justify-center md:justify-end gap-3">
           <NavLink
             to="/account"
             className={({ isActive }) =>

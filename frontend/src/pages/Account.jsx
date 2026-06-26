@@ -126,6 +126,7 @@ export default function Account() {
                     value={form.age}
                     onChange={(e) => update('age', e.target.value)}
                     required
+                    min="0"
                   />
 
                   <div>
@@ -159,6 +160,7 @@ export default function Account() {
                     value={form.heightCm}
                     onChange={(e) => update('heightCm', e.target.value)}
                     required
+                    min="0"
                   />
 
                   <Input
@@ -169,6 +171,7 @@ export default function Account() {
                     value={form.weightKg}
                     onChange={(e) => update('weightKg', e.target.value)}
                     required
+                    min="0"
                   />
                 </div>
 
@@ -250,10 +253,10 @@ export default function Account() {
 
                     <div className="space-y-4">
                       {/* Calories */}
-                      <div className="rounded-xl border border-slate-100 p-4 bg-orange-50/30">
+                      <div className="rounded-xl border border-slate-100 p-4 bg-[#8E6549]/10">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-bold text-slate-500 uppercase tracking-wide">Calorie Goal</span>
-                          <span className="text-xl font-black text-orange-600">{metrics.dailyCalorieGoal} kcal</span>
+                          <span className="text-xl font-black text-[#8E6549]">{metrics.dailyCalorieGoal} kcal</span>
                         </div>
                       </div>
 
@@ -269,7 +272,7 @@ export default function Account() {
                               <span className="text-slate-800">{metrics.macros.protein}g</span>
                             </div>
                             <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
-                              <div className="h-full bg-orange-500 rounded-full" style={{ width: '30%' }} />
+                              <div className="h-full bg-[#8E6549] rounded-full" style={{ width: '30%' }} />
                             </div>
                           </div>
 
@@ -280,7 +283,7 @@ export default function Account() {
                               <span className="text-slate-800">{metrics.macros.carbs}g</span>
                             </div>
                             <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
-                              <div className="h-full bg-orange-500 rounded-full" style={{ width: '40%' }} />
+                              <div className="h-full bg-[#8E6549] rounded-full" style={{ width: '40%' }} />
                             </div>
                           </div>
 
@@ -291,7 +294,7 @@ export default function Account() {
                               <span className="text-slate-800">{metrics.macros.fat}g</span>
                             </div>
                             <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
-                              <div className="h-full bg-orange-500 rounded-full" style={{ width: '30%' }} />
+                              <div className="h-full bg-[#8E6549] rounded-full" style={{ width: '30%' }} />
                             </div>
                           </div>
                         </div>

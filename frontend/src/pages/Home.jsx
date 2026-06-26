@@ -7,6 +7,7 @@ import { useAuth } from '../store/authStore'
 import { formatDayLabel, getGreeting, toDateKey } from '../utils/formatDate'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import AnimatedShowcase from '../components/dashboard/AnimatedShowcase'
 
 function loadTrackedDays(userId) {
   try {
@@ -66,8 +67,10 @@ export default function Home() {
     <div className="min-h-svh bg-transparent">
       <Navbar />
 
-      <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-        {/* Welcome */}
+      <main className="mx-auto max-w-[90rem] px-4 py-8 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          <div className="flex-1 min-w-0 w-full xl:max-w-none">
+            {/* Welcome */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl">
             {getGreeting()}, {firstName}! 👋
@@ -163,6 +166,13 @@ export default function Home() {
               </p>
             </div>
           </section>
+            </div>
+          </div>
+          
+          {/* Right Panel Showcase */}
+          <aside className="w-full lg:w-[420px] flex-shrink-0 pt-2 sticky top-8">
+            <AnimatedShowcase />
+          </aside>
         </div>
       </main>
       <Footer />

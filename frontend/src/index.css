@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #ecfdf5;
-  --color-brand-100: #d1fae5;
-  --color-brand-200: #a7f3d0;
-  --color-brand-300: #6ee7b7;
-  --color-brand-400: #34d399;
-  --color-brand-500: #10b981;
-  --color-brand-600: #059669;
-  --color-brand-700: #047857;
-  --color-brand-800: #065f46;
-  --color-brand-900: #064e3b;
-  --color-brand-950: #022c22;
+  --color-brand-50: #F1F3ED;
+  --color-brand-100: #DFE4D8;
+  --color-brand-200: #BDC9B2;
+  --color-brand-300: #9CAE8B;
+  --color-brand-400: #7B9365;
+  --color-brand-500: #5E774B;
+  --color-brand-600: #4C643B;
+  --color-brand-700: #394B2C;
+  --color-brand-800: #293620;
+  --color-brand-900: #182013;
+  --color-brand-950: #0E130B;
+  
+  --color-secondary: #F8F9ED;
+  
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -24,12 +27,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('/paper_texture_bg.png');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #f8fafc;
+  background-color: var(--color-secondary);
 }
 
 #root {
@@ -83,4 +81,45 @@ body {
   -webkit-mask-image: linear-gradient(to right, transparent, white 8%, white 92%, transparent);
 }
 
+@keyframes marquee-btt {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
 
+.animate-marquee-btt {
+  display: flex;
+  flex-direction: column;
+  animation: marquee-btt linear infinite;
+}
+
+.animate-marquee-btt:hover {
+  animation-play-state: paused;
+}
+
+.marquee-mask-vertical {
+  mask-image: linear-gradient(to bottom, transparent, white 5%, white 95%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, white 5%, white 95%, transparent);
+}
+
+@keyframes marquee-ttb {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-marquee-ttb {
+  display: flex;
+  flex-direction: column;
+  animation: marquee-ttb linear infinite;
+}
+
+.animate-marquee-ttb:hover {
+  animation-play-state: paused;
+}

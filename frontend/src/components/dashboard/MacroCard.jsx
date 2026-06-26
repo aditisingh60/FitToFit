@@ -1,27 +1,27 @@
 const COLORS = {
   calories: {
-    bg: 'bg-orange-50',
-    ring: 'ring-orange-100',
-    text: 'text-orange-600',
-    bar: 'bg-orange-500',
+    bg: 'bg-[#8E6549]/5',
+    ring: 'ring-[#8E6549]/20',
+    text: 'text-[#8E6549]',
+    bar: 'bg-[#8E6549]',
   },
   protein: {
-    bg: 'bg-orange-50',
-    ring: 'ring-orange-100',
-    text: 'text-orange-600',
-    bar: 'bg-orange-500',
+    bg: 'bg-[#8E6549]/5',
+    ring: 'ring-[#8E6549]/20',
+    text: 'text-[#8E6549]',
+    bar: 'bg-[#8E6549]',
   },
   carbs: {
-    bg: 'bg-orange-50',
-    ring: 'ring-orange-100',
-    text: 'text-orange-600',
-    bar: 'bg-orange-500',
+    bg: 'bg-[#8E6549]/5',
+    ring: 'ring-[#8E6549]/20',
+    text: 'text-[#8E6549]',
+    bar: 'bg-[#8E6549]',
   },
   fat: {
-    bg: 'bg-orange-50',
-    ring: 'ring-orange-100',
-    text: 'text-orange-600',
-    bar: 'bg-orange-500',
+    bg: 'bg-[#8E6549]/5',
+    ring: 'ring-[#8E6549]/20',
+    text: 'text-[#8E6549]',
+    bar: 'bg-[#8E6549]',
   },
 }
 
