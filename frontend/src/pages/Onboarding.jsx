@@ -40,13 +40,13 @@ export default function Onboarding() {
 
   const metrics = form.age && form.sex && form.heightCm && form.weightKg && form.activityFactor
     ? previewMetrics({
-        age: Number(form.age),
-        sex: form.sex,
-        heightCm: Number(form.heightCm),
-        weightKg: Number(form.weightKg),
-        activityFactor: Number(form.activityFactor),
-        goal: form.goal,
-      })
+      age: Number(form.age),
+      sex: form.sex,
+      heightCm: Number(form.heightCm),
+      weightKg: Number(form.weightKg),
+      activityFactor: Number(form.activityFactor),
+      goal: form.goal,
+    })
     : null
 
   const canNext = () => {
@@ -118,7 +118,9 @@ export default function Onboarding() {
       <div className="mx-auto max-w-2xl">
         <div className="mb-8 text-center">
           <Link to="/" className="mb-3 inline-flex items-center gap-2 hover:opacity-90 transition">
-            <span className="text-2xl">🥗</span>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#e6e6e6] overflow-hidden">
+              <img src="/image.png" alt="FoodToFit Logo" className="h-full w-full object-cover" />
+            </div>
             <span className="text-lg font-bold text-slate-900">FoodToFit</span>
           </Link>
           <h1 className="text-2xl font-bold text-slate-900">

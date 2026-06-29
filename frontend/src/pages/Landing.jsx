@@ -37,8 +37,8 @@ export default function Landing() {
       <header className="border-b border-slate-200/50 bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
-              <span className="text-lg">🥗</span>
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#e6e6e6] overflow-hidden">
+              <img src="/image.png" alt="FoodToFit Logo" className="h-full w-full object-cover" />
             </div>
             <span className="text-lg font-bold text-slate-900">FoodToFit</span>
           </Link>
@@ -146,9 +146,8 @@ export default function Landing() {
               {IMAGES.map((img, i) => (
                 <div
                   key={img}
-                  className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-                    i === activeSlide ? 'opacity-90' : 'opacity-0'
-                  }`}
+                  className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${i === activeSlide ? 'opacity-90' : 'opacity-0'
+                    }`}
                   style={{ backgroundImage: `url(${img})` }}
                 />
               ))}
@@ -211,7 +210,7 @@ export default function Landing() {
               {/* Logged foods */}
               <div className="flex-1 flex flex-col justify-end gap-2 mt-4">
                 <span className="text-[9px] uppercase font-extrabold tracking-wider text-slate-450 block">Logged Today</span>
-                
+
                 <div className="bg-slate-900/60 border border-white/10 backdrop-blur-sm rounded-xl p-2.5 flex items-center justify-between text-xs">
                   <div>
                     <p className="font-bold text-slate-100">Chicken Salad with Avocado</p>
@@ -246,9 +245,8 @@ export default function Landing() {
               <button
                 key={img}
                 onClick={() => setActiveSlide(idx)}
-                className={`w-10 h-10 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
-                  activeSlide === idx ? 'border-brand-500 scale-110 shadow-md' : 'border-white hover:border-slate-300'
-                }`}
+                className={`w-10 h-10 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${activeSlide === idx ? 'border-brand-500 scale-110 shadow-md' : 'border-white hover:border-slate-300'
+                  }`}
               >
                 <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
               </button>

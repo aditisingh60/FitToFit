@@ -126,8 +126,8 @@ const Login = () => {
 
         <div className="relative z-10 flex flex-1 flex-col justify-center px-14 xl:px-20">
           <Link to="/" className="mb-8 inline-flex items-center gap-2.5 hover:opacity-90 transition">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
-              <span className="text-xl">🥗</span>
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#e6e6e6] overflow-hidden">
+              <img src="/image.png" alt="FoodToFit Logo" className="h-full w-full object-cover" />
             </div>
             <span className="text-xl font-bold tracking-tight text-white">FoodToFit</span>
           </Link>
@@ -168,8 +168,8 @@ const Login = () => {
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <Link to="/" className="mb-8 flex items-center justify-center gap-2 lg:hidden hover:opacity-90 transition">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
-              <span className="text-lg">🥗</span>
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#e6e6e6] overflow-hidden">
+              <img src="/image.png" alt="FoodToFit Logo" className="h-full w-full object-cover" />
             </div>
             <span className="text-lg font-bold text-slate-900">FoodToFit</span>
           </Link>

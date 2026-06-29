@@ -15,8 +15,8 @@ export default function Navbar() {
       <div className="mx-auto flex flex-wrap max-w-[90rem] items-center justify-between gap-y-4 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap w-full md:w-auto items-center justify-between md:justify-start gap-4 sm:gap-6">
           <Link to="/" className="flex items-center gap-2.5 hover:opacity-90 transition shrink-0">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600">
-              <span className="text-lg">🥗</span>
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#e6e6e6] overflow-hidden">
+              <img src="/image.png" alt="FoodToFit Logo" className="h-full w-full object-cover" />
             </div>
             <span className="text-lg font-bold text-slate-900">FoodToFit</span>
           </Link>
@@ -24,8 +24,7 @@ export default function Navbar() {
             <NavLink
               to="/home"
               className={({ isActive }) =>
-                `text-sm font-semibold transition ${
-                  isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                 }`
               }
             >
@@ -34,8 +33,7 @@ export default function Navbar() {
             <NavLink
               to="/tracker"
               className={({ isActive }) =>
-                `text-sm font-semibold transition ${
-                  isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                 }`
               }
             >
@@ -44,8 +42,7 @@ export default function Navbar() {
             <NavLink
               to="/blog"
               className={({ isActive }) =>
-                `text-sm font-semibold transition ${
-                  isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
+                `text-sm font-semibold transition ${isActive ? 'text-brand-600' : 'text-slate-500 hover:text-slate-800'
                 }`
               }
             >
@@ -57,10 +54,9 @@ export default function Navbar() {
           <NavLink
             to="/account"
             className={({ isActive }) =>
-              `rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
-                isActive
-                  ? 'bg-brand-50 text-brand-700'
-                  : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'
+              `rounded-lg px-3 py-1.5 text-sm font-semibold transition ${isActive
+                ? 'bg-brand-50 text-brand-700'
+                : 'text-slate-500 hover:bg-slate-100 hover:text-slate-800'
               }`
             }
           >
